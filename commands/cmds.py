@@ -9,9 +9,10 @@ def down(pen):
 
 
 def left(pen):
-	pen.left(50)
+	pen.left(90)
+	pen.forward(50)
 
 
 def right(pen):
-	pen.right(50)
-
+	pen.right(90)
+	pen.forward(50)

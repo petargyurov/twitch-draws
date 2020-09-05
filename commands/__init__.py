@@ -1,9 +1,12 @@
-from .cmds import up
+from .cmds import up, down, left, right
 
 
 PREFIX = "!"
 COMMANDS = {
-	"up": up
+	"up": up,
+	"down": down,
+	"left": left,
+	"right": right
 }
 
 
@@ -16,5 +19,5 @@ def _process(message):
 def perform(user, command, pen):
 	command = _process(command)
 	func = COMMANDS.get(command)
-	print(f"Performing <{command}>")
-	func(pen)
+	if func:
+		func(pen)
