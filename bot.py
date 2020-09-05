@@ -1,25 +1,14 @@
-import turtle
-
 from irc.bot import SingleServerIRCBot
 from requests import get
 
 from commands import perform
 from config import *
-
-# TODO: separate drawing from bot file
-window = turtle.Screen()
-pen = turtle.Turtle()
-
-pen.forward(50)
-pen.left(90)
-pen.forward(100)
-
-pen.color("blue")
-pen.dot(20, "red")
+from drawing import pen
 
 
 class Bot(SingleServerIRCBot):
-	def __init__(self):
+	def __init__(self, pen):
+		self.pen = pen
 		self.HOST = "irc.chat.twitch.tv"
 		self.PORT = 6667
 		self.USERNAME = USERNAME.lower()
@@ -47,14 +36,13 @@ class Bot(SingleServerIRCBot):
 		user = {"name": tags["display-name"], "id": tags["user-id"]}
 		message = event.arguments[0]
 
-		perform(user, message, pen)
+		perform(user, message, self.pen)
 		print(f"{user['name']}: {message}")
 
 	def send_message(self, message):
 		self.connection.privmsg(self.CHANNEL, message)
 
 
-if __name__ == '__main__':
-	bot = Bot()
+def start_bot():
+	bot = Bot(pen)
 	bot.start()
-	turtle.done()  # kinda buggy right now - need to have this on a new thread
