@@ -15,9 +15,3 @@ def left(pen):
 def right(pen):
 	pen.right(50)
 
-
-# window.onkeypress(up, "Up")
-# window.onkeypress(down, "Down")
-# window.onkeypress(left, "Left")
-# window.onkeypress(right, "Right")
-# window.listen()
