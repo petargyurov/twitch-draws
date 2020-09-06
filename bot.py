@@ -1,14 +1,13 @@
 from irc.bot import SingleServerIRCBot
 from requests import get
 
-from commands import perform
+from commands import process
 from config import *
-from drawing import pen
 
 
 class Bot(SingleServerIRCBot):
-	def __init__(self, pen):
-		self.pen = pen
+	def __init__(self, artist):
+		self.artist = artist
 		self.HOST = "irc.chat.twitch.tv"
 		self.PORT = 6667
 		self.USERNAME = USERNAME.lower()
@@ -36,13 +35,11 @@ class Bot(SingleServerIRCBot):
 		user = {"name": tags["display-name"], "id": tags["user-id"]}
 		message = event.arguments[0]
 
-		perform(user, message, self.pen)
-		print(f"{user['name']}: {message}")
+		message = process(message)
+		if message:
+			print(f"{user['name']}: {message}")
 
 	def send_message(self, message):
 		self.connection.privmsg(self.CHANNEL, message)
 
 
-def start_bot():
-	bot = Bot(pen)
-	bot.start()
