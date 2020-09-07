@@ -35,9 +35,17 @@ class Bot(SingleServerIRCBot):
 		user = {"name": tags["display-name"], "id": tags["user-id"]}
 		message = event.arguments[0]
 
-		message = process(message)
-		if message:
-			print(f"{user['name']}: {message}")
+		command = None
+		try:
+			command, args = process(message)
+		except (KeyError, TypeError, ValueError) as e:
+			pass
+
+		if command:
+			print(f"{user['name']}: {command} {args}")
+			handler = getattr(self.artist, command)
+			if handler and callable(handler):
+				handler(*args)
 
 	def send_message(self, message):
 		self.connection.privmsg(self.CHANNEL, message)

@@ -44,8 +44,14 @@ class Artist(object):
 			self.grid_pen.goto(self.width, y)
 
 	def draw(self, x, y):
+		self.pen.shape("square")
+		self.pen.resizemode("user")
+		size = (1 / self.grid_size) * 50  # TODO: magic number?
+		position_offset = size * 10
+		self.pen.shapesize(size, size)
 		self.pen.up()
-		self.pen.goto(x, y)  # TODO: normalise to valid coords
+
+		self.pen.goto(x+position_offset, y+position_offset)  # TODO: normalise to valid coords
 		self.pen.stamp()
 		self.pen.down()
 
