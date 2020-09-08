@@ -1,6 +1,6 @@
 import turtle
 from random import choice
-from .utils import round_nearest
+from .utils import round_nearest, clamp
 
 
 class Artist(object):
@@ -47,6 +47,10 @@ class Artist(object):
 		# normalise given coords
 		x = round_nearest(x, self.steps_x)
 		y = round_nearest(y, self.steps_y)
+
+		# clamp coords
+		x = clamp(x, 0, self.width-self.steps_x)
+		y = clamp(y, 0, self.height - self.steps_y)
 
 		self.pen.shape("square")
 		try:
