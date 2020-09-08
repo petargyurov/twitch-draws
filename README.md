@@ -1,6 +1,6 @@
 # Chat Makes Art
 
-###🔴 Go to [ChatMakesArt](https://www.twitch.tv/chatmakesart) on Twitch to play!
+### 🔴 Go to [ChatMakesArt](https://www.twitch.tv/chatmakesart) on Twitch to play!
 
 
 ChatMakesArt is an interactive experiment where users can create collaborative
