@@ -1,6 +1,7 @@
 import turtle
 from random import choice
-from .utils import round_nearest, clamp
+
+from .utils import clamp, random_color, round_nearest
 
 
 class Artist(object):
@@ -49,7 +50,7 @@ class Artist(object):
 		y = round_nearest(y, self.steps_y)
 
 		# clamp coords
-		x = clamp(x, 0, self.width-self.steps_x)
+		x = clamp(x, 0, self.width - self.steps_x)
 		y = clamp(y, 0, self.height - self.steps_y)
 
 		self.pen.shape("square")
@@ -64,24 +65,16 @@ class Artist(object):
 		self.pen.shapesize(size, size)
 		self.pen.up()
 
-		self.pen.goto(x+position_offset, y+position_offset)  # TODO: normalise to valid coords
+		self.pen.goto(x + position_offset, y + position_offset)
 		self.pen.stamp()
 		self.pen.down()
 
-	def _simulate(self, n):  # TODO: remove after testing
-		self.pen.shape("square")
-		self.pen.resizemode("user")
-		size = (1 / self.grid_size) * 50  # TODO: magic number?
-		position_offset = size * 10
-		self.pen.shapesize(size, size)
-		self.pen.up()
-
+	def _simulate(self, n):
 		for i in range(0, n):
-			x = choice(range(0, self.width, self.steps_x)) + position_offset
-			y = choice(range(0, self.height, self.steps_y)) + position_offset
-			self.pen.goto(x, y)
-			self.pen.color(choice(["green", "red", "blue", "magenta"]))
-			self.pen.stamp()
+			x = choice(range(0, self.width, self.steps_x))
+			y = choice(range(0, self.height, self.steps_y))
+			color = random_color()
+			self.draw(x, y, color)
 
 	def clear_grid(self):
 		self.grid_pen.clear()
