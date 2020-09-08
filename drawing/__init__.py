@@ -1,5 +1,6 @@
 import turtle
 from random import choice
+from .utils import round_nearest
 
 
 class Artist(object):
@@ -44,6 +45,12 @@ class Artist(object):
 			self.grid_pen.goto(self.width, y)
 
 	def draw(self, x, y):
+		# normalise given coords
+		steps_x = int(self.width / self.grid_size)
+		x = round_nearest(x, steps_x)
+		steps_y = int(self.height / self.grid_size)
+		y = round_nearest(y, steps_y)
+
 		self.pen.shape("square")
 		self.pen.resizemode("user")
 		size = (1 / self.grid_size) * 50  # TODO: magic number?
