@@ -10,6 +10,8 @@ class Artist(object):
 		self.grid_size = grid_size
 		self.speed = pen_speed
 		self.colormode = colormode
+		self.steps_x = int(self.width / self.grid_size)
+		self.steps_y = int(self.height / self.grid_size)
 
 		self.screen = turtle.Screen()
 		self.screen.setup(self.width, self.height)
@@ -25,20 +27,17 @@ class Artist(object):
 	def draw_grid(self, color=(190, 190, 190)):
 		r, g, b = color
 		self.grid_pen.color(r, g, b)
-
-		steps_x = int(self.width / self.grid_size)
-		steps_y = int(self.height / self.grid_size)
 		self.grid_pen.home()
 
 		# draw vertical lines
-		for x in range(0, self.width + 1, steps_x):
+		for x in range(0, self.width + 1, self.steps_x):
 			self.grid_pen.up()
 			self.grid_pen.goto(x, 0)
 			self.grid_pen.down()
 			self.grid_pen.goto(x, self.height)
 
 		# draw horizontal lines
-		for y in range(0, self.height + 1, steps_y):
+		for y in range(0, self.height + 1, self.steps_y):
 			self.grid_pen.up()
 			self.grid_pen.goto(0, y)
 			self.grid_pen.down()
@@ -46,10 +45,8 @@ class Artist(object):
 
 	def draw(self, x, y):
 		# normalise given coords
-		steps_x = int(self.width / self.grid_size)
-		x = round_nearest(x, steps_x)
-		steps_y = int(self.height / self.grid_size)
-		y = round_nearest(y, steps_y)
+		x = round_nearest(x, self.steps_x)
+		y = round_nearest(y, self.steps_y)
 
 		self.pen.shape("square")
 		self.pen.resizemode("user")
@@ -70,11 +67,9 @@ class Artist(object):
 		self.pen.shapesize(size, size)
 		self.pen.up()
 
-		steps_x = int(self.width / self.grid_size)
-		steps_y = int(self.height / self.grid_size)
 		for i in range(0, n):
-			x = choice(range(0, self.width, steps_x)) + position_offset
-			y = choice(range(0, self.height, steps_y)) + position_offset
+			x = choice(range(0, self.width, self.steps_x)) + position_offset
+			y = choice(range(0, self.height, self.steps_y)) + position_offset
 			self.pen.goto(x, y)
 			self.pen.color(choice(["green", "red", "blue", "magenta"]))
 			self.pen.stamp()
