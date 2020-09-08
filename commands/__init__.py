@@ -1,6 +1,6 @@
 PREFIX = "!"
 COMMANDS = {
-	'draw': (int, int)
+	'draw': (int, int, str)
 }
 
 

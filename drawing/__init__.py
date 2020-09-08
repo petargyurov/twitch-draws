@@ -43,12 +43,17 @@ class Artist(object):
 			self.grid_pen.down()
 			self.grid_pen.goto(self.width, y)
 
-	def draw(self, x, y):
+	def draw(self, x, y, color):
 		# normalise given coords
 		x = round_nearest(x, self.steps_x)
 		y = round_nearest(y, self.steps_y)
 
 		self.pen.shape("square")
+		try:
+			self.pen.color(color)
+		except turtle.TurtleGraphicsError:
+			return
+
 		self.pen.resizemode("user")
 		size = (1 / self.grid_size) * 50  # TODO: magic number?
 		position_offset = size * 10
@@ -59,7 +64,7 @@ class Artist(object):
 		self.pen.stamp()
 		self.pen.down()
 
-	def _simulate(self, n): # TODO: remove after testing
+	def _simulate(self, n):  # TODO: remove after testing
 		self.pen.shape("square")
 		self.pen.resizemode("user")
 		size = (1 / self.grid_size) * 50  # TODO: magic number?
