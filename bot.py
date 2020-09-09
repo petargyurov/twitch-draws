@@ -1,3 +1,8 @@
+"""
+Mostly adapted from: https://github.com/Carberra/twitch-bot-tutorial
+
+"""
+
 from irc.bot import SingleServerIRCBot
 from requests import get
 
@@ -49,5 +54,3 @@ class Bot(SingleServerIRCBot):
 
 	def send_message(self, message):
 		self.connection.privmsg(self.CHANNEL, message)
-
-
